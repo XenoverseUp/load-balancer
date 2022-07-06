@@ -1,0 +1,35 @@
+{
+  "name": "load-balancer",
+  "version": "1.0.0",
+  "description": "Load balancer created using NodeJS",
+  "main": "server.js",
+  "type": "module",
+  "scripts": {
+    "servers": "concurrently \"set PORT=3000 && node server\" \"set PORT=3001 && node server\" \"set PORT=3002 && node server\" \"set PORT=3003 && node server\"",
+    "balancer": "node balancer/balancer",
+    "dev": "concurrently \"npm run servers\" \"npm run balancer\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/XenoverseUp/load-balancer.git"
+  },
+  "keywords": [
+    "load",
+    "balancer",
+    "nodejs",
+    "express"
+  ],
+  "author": "Can Durmus",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/XenoverseUp/load-balancer/issues"
+  },
+  "homepage": "https://github.com/XenoverseUp/load-balancer#readme",
+  "dependencies": {
+    "axios": "^0.27.2",
+    "express": "^4.18.1"
+  },
+  "devDependencies": {
+    "concurrently": "^7.2.2"
+  }
+}
