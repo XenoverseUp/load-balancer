@@ -1,11 +1,9 @@
+import targets from "./utils/readConfig.js"
+
 class ServerPicker {
   #prev
   #curr = 0
-  #targets
-
-  constructor(targets) {
-    this.#targets = targets
-  }
+  #targets = targets
 
   pickUniformly() {
     do {

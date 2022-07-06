@@ -5,12 +5,7 @@ import ServerPicker from "./ServerPicker.js"
 
 const app = express()
 const PORT = process.env.PORT || 8080
-const serverPicker = new ServerPicker([
-  "http://localhost:3000",
-  "http://localhost:3001",
-  "http://localhost:3002",
-  "http://localhost:3003",
-])
+const serverPicker = new ServerPicker()
 
 const handler = async (req, res) => {
   const server = serverPicker.pickIncrementally()
