@@ -25,8 +25,8 @@ const handler = async (req, res) => {
   }
 }
 
-app.get("/favicon.ico", (req, res) => res.sendFile("/logo.svg"))
-app.get("*", handler)
+app.get("/favicon.ico", (_, res) => res.sendFile("/logo.svg"))
+app.use((req, res) => handler(req, res))
 
 app.listen(PORT, () =>
   console.log(`Load balancer server is up and running on PORT ${PORT}...`)
