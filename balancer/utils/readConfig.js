@@ -1,6 +1,6 @@
-import fs from "fs"
-import events from "events"
-import readline from "readline"
+const fs = require("fs")
+const events = require("events")
+const readline = require("readline")
 
 const targets = []
 
@@ -21,4 +21,4 @@ const targets = []
   }
 })()
 
-export default targets
+module.exports = targets

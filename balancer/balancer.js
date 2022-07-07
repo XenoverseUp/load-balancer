@@ -1,13 +1,13 @@
-import express from "express"
-import axios from "axios"
+const express = require("express")
+const axios = require("axios")
 
-import ServerPicker from "./ServerPicker.js"
+const ServerPicker = require("./ServerPicker.js")
 
 const app = express()
 const PORT = process.env.PORT || 8080
 const serverPicker = new ServerPicker()
 
-const handler = async (req, res) => {
+const httpHandler = async (req, res) => {
   const server = serverPicker.pickIncrementally()
   const { method, url, headers, body } = req
 
@@ -26,7 +26,7 @@ const handler = async (req, res) => {
 }
 
 app.get("/favicon.ico", (_, res) => res.sendFile("/logo.svg"))
-app.use((req, res) => handler(req, res))
+app.use((req, res) => httpHandler(req, res))
 
 app.listen(PORT, () =>
   console.log(`Load balancer server is up and running on PORT ${PORT}...`)

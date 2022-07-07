@@ -1,4 +1,4 @@
-import targets from "./utils/readConfig.js"
+const targets = require("./utils/readConfig.js")
 
 class ServerPicker {
   #prev
@@ -27,4 +27,4 @@ class ServerPicker {
   }
 }
 
-export default ServerPicker
+module.exports = ServerPicker
