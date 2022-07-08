@@ -8,10 +8,12 @@ const admin = express()
 const SERVING_PORT = parseInt(process.argv.slice(3)) || 8000
 const ADMIN_PORT = parseInt(process.argv.slice(2)) || 8090
 const serverPicker = new ServerPicker()
-const select = true
+let select = true
 
 const httpHandler = async (req, res) => {
-  const server = select ? serverPicker.pickIncrementally() : serverPicker.pickUniformly()
+  const server = select
+    ? serverPicker.pickIncrementally()
+    : serverPicker.pickUniformly()
   const { method, url, headers, body } = req
 
   try {
@@ -32,10 +34,16 @@ app.get("/favicon.ico", (_, res) => res.sendFile("/logo.svg"))
 app.use((req, res) => httpHandler(req, res))
 
 app.listen(SERVING_PORT, () =>
-  console.log(`Load balancer server is up and running on PORT ${SERVING_PORT}...`)
+  console.log(
+    `Load balancer server is up and running on PORT ${SERVING_PORT}...`
+  )
 )
 
-admin.use((req, res) => select = !select)
+admin.get("/", (_, res) => {
+  select = !select
+  return res.send({ message: "Ok 🤘" })
+})
+
 admin.listen(ADMIN_PORT, () =>
   console.log(`Administrator is up and running on PORT ${ADMIN_PORT}...`)
 )
