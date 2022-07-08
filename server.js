@@ -4,7 +4,7 @@ const http = require("http")
 const app = express()
 const server = http.Server(app)
 const io = require("socket.io")(server)
-const PORT = process.env.PORT || 3000
+const PORT = parseInt(process.argv.slice(2)) || 3000
 
 app.get("/", (req, res) => {
   res.json({

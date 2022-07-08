@@ -4,7 +4,7 @@
   "description": "Load balancer created using NodeJS",
   "main": "server.js",
   "scripts": {
-    "servers": "concurrently \"set PORT=3000 && node server\" \"set PORT=3001 && node server\" \"set PORT=3002 && node server\" \"set PORT=3003 && node server\"",
+    "servers": "concurrently \"node server 3000\" \"node server 3001\" \"node server 3002\" \"node server 3003\"",
     "balancer": "node balancer/balancer",
     "dev": "concurrently \"npm run servers\" \"npm run balancer\""
   },
