@@ -4,11 +4,12 @@ const http = require("http")
 const app = express()
 const server = http.Server(app)
 const io = require("socket.io")(server)
-const PORT = process.env.PORT || 3000
+const PORT = parseInt(process.argv.slice(2)) || 3000
+console.log("=====> SELECTED PORT: " + PORT)
 
 app.get("/", (req, res) => {
   res.json({
-    message: `Hello from PORT ${PORT}`,
+    message: `Hello from PORT ${PORT}`
   })
 })
 
