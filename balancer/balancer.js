@@ -39,9 +39,20 @@ app.listen(SERVING_PORT, () =>
   )
 )
 
-admin.get("/", (_, res) => {
-  select = !select
-  return res.send({ message: "Ok 🤘" })
+var bodyParser = require('body-parser')
+admin.post("/", bodyParser.json(), (req, res) => {
+  let action = req.body.action
+  let message = ""
+  if (action == "round-robin") {
+    select = true
+    message = "Load Balancer is switched to round robin"
+  } else if (action == "random") {
+    select = false
+    message = "Load Balancer is switched to random"
+  } else {
+    message = "Invalid action. No change."
+  }
+  return res.send({ message: message })
 })
 
 admin.listen(ADMIN_PORT, () =>
