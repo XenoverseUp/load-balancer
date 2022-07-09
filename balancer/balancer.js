@@ -5,15 +5,20 @@ const ServerPicker = require("./ServerPicker.js")
 
 const app = express()
 const admin = express()
+
 const SERVING_PORT = parseInt(process.argv.slice(3)) || 8000
 const ADMIN_PORT = parseInt(process.argv.slice(2)) || 8090
 const serverPicker = new ServerPicker()
+
 let select = true
+
+admin.use(express.json())
 
 const httpHandler = async (req, res) => {
   const server = select
     ? serverPicker.pickIncrementally()
     : serverPicker.pickUniformly()
+
   const { method, url, headers, body } = req
 
   try {
@@ -39,22 +44,21 @@ app.listen(SERVING_PORT, () =>
   )
 )
 
-var bodyParser = require('body-parser')
-admin.post("/", bodyParser.json(), (req, res) => {
-  let action = req.body.action
-  let message = ""
-  if (action == "round-robin") {
-    select = true
-    message = "Load Balancer is switched to round robin"
-  } else if (action == "random") {
-    select = false
-    message = "Load Balancer is switched to random"
-  } else {
-    message = "Invalid action. No change."
-  }
-  return res.send({ message: message })
+admin.post("/", (req, res) => {
+  const { action } = req.body
+  const message =
+    action === "round-robin"
+      ? "Load Balancer is switched to round robin"
+      : action === "random"
+      ? "Load Balancer is switched to random"
+      : "Invalid action. No change."
+
+  if (action === "round-robin") select = true
+  else if (action === "random") select = false
+
+  return res.send({ message })
 })
 
 admin.listen(ADMIN_PORT, () =>
-  console.log(`Administrator is up and running on PORT ${ADMIN_PORT}...`)
+  console.log(`Administrator server is up and running on PORT ${ADMIN_PORT}...`)
 )
