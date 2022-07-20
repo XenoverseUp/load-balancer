@@ -23,3 +23,15 @@ It runs servers.
 #### `npm run balancer`
 
 It runs balancer.
+
+---
+
+#### curl --location --request GET 'http://localhost:8080'
+
+Makes a request to local load balancer
+
+---
+
+#### curl --location --request POST 'http://localhost:3080' --header 'Content-Type: application/json' --data-raw '{ "action": "round-robin" }'
+
+Sends behavior change to the load balancer's admin port
