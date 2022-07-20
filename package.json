@@ -5,7 +5,7 @@
   "main": "server.js",
   "scripts": {
     "servers": "concurrently \"node server 3000\" \"node server 3001\" \"node server 3002\" \"node server 3003\"",
-    "balancer": "node balancer/balancer",
+    "balancer": "node balancer/balancer 3080 8080",
     "dev": "concurrently \"npm run servers\" \"npm run balancer\""
   },
   "repository": {
